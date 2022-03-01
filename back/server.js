@@ -22,7 +22,6 @@ const normalizePort = val => {
 };
 const port = normalizePort(process.env.PORT || '3000');
 if (port == false) {
-  console.log("Error invalid port number, it must be an integer and be > 0")
   exit()
 }
 app.set('port', port);

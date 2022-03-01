@@ -6,8 +6,8 @@ const passwordSchema = new passwordValidator();
 // Le schéma que doit respecter le mot de passe
 passwordSchema
     .is()
-    //Longueur minimal 6
-    .min(6)
+    //Longueur minimal 8
+    .min(8)
     .is()
     //Longueur maximal 20
     .max(20)

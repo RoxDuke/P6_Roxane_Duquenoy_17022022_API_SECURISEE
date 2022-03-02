@@ -3,7 +3,8 @@ const fs = require('fs');
 
 //Création d'une sauce
 exports.createThing = (req, res, next) => {
-  const thingObject = JSON.parse(req.body.thing);
+  const thingObject = JSON.parse(req.body.sauce);
+  console.log(thingObject);
   delete thingObject._id;
   const thing = new Thing({
     ...thingObject,
@@ -25,9 +26,10 @@ exports.getOneThing = (req, res, next) => {
 };
 //Modification d'une sauce 
 exports.modifyThing = (req, res, next) => {
+  //L'utilisateur à mis à jour l'image ou pas: 1 >reçoit les données JSON, 2 > reçoit l'élément form data
   const thingObject = req.file ?
     {
-      ...JSON.parse(req.body.thing),
+      ...JSON.parse(req.body.sauce),
       imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     } : { ...req.body };
   Thing.updateOne({ _id: req.params.id }, { ...thingObject, _id: req.params.id })

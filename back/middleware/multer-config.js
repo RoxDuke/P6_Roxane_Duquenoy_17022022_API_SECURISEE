@@ -1,4 +1,4 @@
-const req = require('express/lib/request');
+// const req = require('express/lib/request');
 const multer = require('multer');
 //Création d'un dictionnaire 
 const MIME_TYPES = {

@@ -60,7 +60,7 @@ exports.getAllStuff = (req, res, next) => {
 };
 //Aimer une sauce
 exports.likeASauce = function (request, response, next) {
-  Sauce.findOne({ _id: request.params.id })
+  Thing.findOne({ _id: request.params.id })
     .then(function (sauce) {
       switch (request.body.like) {
         // Like = 1 => L'utilisateur aime la sauce (like = +1)
@@ -81,7 +81,7 @@ exports.likeASauce = function (request, response, next) {
 //L'utilisateur n'aime pas la sauce 
         case -1:
           if (!sauce.usersDisliked.includes(request.body.userId) && request.body.like === -1) {
-            Sauce.updateOne({ _id: request.params.id },
+            Thing.updateOne({ _id: request.params.id },
               { $inc: { dislikes: 1 }, $push: { usersDisliked: request.body.userId }, }
             )
               .then(function () {
@@ -95,7 +95,7 @@ exports.likeASauce = function (request, response, next) {
 //Annulation du like par l'utilisateur
         case 0:
           if (sauce.usersLiked.includes(request.body.userId)) {
-            Sauce.updateOne({ _id: request.params.id },
+            Thing.updateOne({ _id: request.params.id },
               { $inc: { likes: -1 }, $pull: { usersLiked: request.body.userId }, }
             )
               .then(function () {
@@ -107,7 +107,7 @@ exports.likeASauce = function (request, response, next) {
           }
 //Annulation du dislike 
           if (sauce.usersDisliked.includes(request.body.userId)) {
-            Sauce.updateOne(
+            Thing.updateOne(
               { _id: request.params.id },
               { $inc: { dislikes: -1 }, $pull: { usersDisliked: request.body.userId }, }
             )

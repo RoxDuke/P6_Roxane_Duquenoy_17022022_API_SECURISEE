@@ -9,20 +9,20 @@ exports.createThing = (req, res, next) => {
   const thing = new Thing({
     ...thingObject,
     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    
+
   });
   thing.save()
-    .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
+    .then(() => res.status(201).json({ message: 'Objet enregistré !' }))
     .catch(error => res.status(400).json({ error }));
 };
 //Récupérer une sauce 
 exports.getOneThing = (req, res, next) => {
-  Thing.findOne({_id: req.params.id}).then((thing) => {
-      res.status(200).json(thing);
-    }
+  Thing.findOne({ _id: req.params.id }).then((thing) => {
+    res.status(200).json(thing);
+  }
   ).catch((error) => {
-      res.status(404).json({error: error});
-    });
+    res.status(404).json({ error: error });
+  });
 };
 //Modification d'une sauce 
 exports.modifyThing = (req, res, next) => {
@@ -33,7 +33,7 @@ exports.modifyThing = (req, res, next) => {
       imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     } : { ...req.body };
   Thing.updateOne({ _id: req.params.id }, { ...thingObject, _id: req.params.id })
-    .then(() => res.status(200).json({ message: 'Objet modifié !'}))
+    .then(() => res.status(200).json({ message: 'Objet modifié !' }))
     .catch(error => res.status(400).json({ error }));
 };
 //Suppression d'une sauce 
@@ -43,7 +43,7 @@ exports.deleteThing = (req, res, next) => {
       const filename = thing.imageUrl.split('/images/')[1];
       fs.unlink(`images/${filename}`, () => {
         Thing.deleteOne({ _id: req.params.id })
-          .then(() => res.status(200).json({ message: 'Objet supprimé !'}))
+          .then(() => res.status(200).json({ message: 'Objet supprimé !' }))
           .catch(error => res.status(400).json({ error }));
       });
     })
@@ -52,11 +52,11 @@ exports.deleteThing = (req, res, next) => {
 //Récupérer toutes les sauces 
 exports.getAllStuff = (req, res, next) => {
   Thing.find().then((things) => {
-      res.status(200).json(things);
-    }
+    res.status(200).json(things);
+  }
   ).catch((error) => {
-      res.status(400).json({error: error});
-    });
+    res.status(400).json({ error: error });
+  });
 };
 //Aimer une sauce
 exports.likeASauce = function (request, response, next) {
@@ -66,7 +66,7 @@ exports.likeASauce = function (request, response, next) {
         // Like = 1 => L'utilisateur aime la sauce (like = +1)
         case 1:
           if (!sauce.usersLiked.includes(request.body.userId) && request.body.like === 1) {
-            Sauce.updateOne({ _id: request.params.id },
+            Thing.updateOne({ _id: request.params.id },
               {
                 $inc: { likes: 1 }, $push: { usersLiked: request.body.userId }
               })
@@ -78,7 +78,7 @@ exports.likeASauce = function (request, response, next) {
               });
           }
           break;
-//L'utilisateur n'aime pas la sauce 
+        //L'utilisateur n'aime pas la sauce 
         case -1:
           if (!sauce.usersDisliked.includes(request.body.userId) && request.body.like === -1) {
             Thing.updateOne({ _id: request.params.id },
@@ -92,7 +92,7 @@ exports.likeASauce = function (request, response, next) {
               });
           }
           break;
-//Annulation du like par l'utilisateur
+        //Annulation du like par l'utilisateur
         case 0:
           if (sauce.usersLiked.includes(request.body.userId)) {
             Thing.updateOne({ _id: request.params.id },
@@ -105,7 +105,7 @@ exports.likeASauce = function (request, response, next) {
                 response.status(400).json({ error: error });
               });
           }
-//Annulation du dislike 
+          //Annulation du dislike 
           if (sauce.usersDisliked.includes(request.body.userId)) {
             Thing.updateOne(
               { _id: request.params.id },

@@ -1,4 +1,4 @@
-const validator = require("validator"); 
+const validator = require("validator");
 
 //Vérification de l'adresse mail utilisateur 
 module.exports = function (req, res, next) {

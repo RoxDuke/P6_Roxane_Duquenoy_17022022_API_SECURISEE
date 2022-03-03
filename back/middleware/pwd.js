@@ -1,4 +1,4 @@
-const passwordValidator = require("password-validator"); 
+const passwordValidator = require("password-validator");
 
 // Création du schéma du mot de passe
 const passwordSchema = new passwordValidator();

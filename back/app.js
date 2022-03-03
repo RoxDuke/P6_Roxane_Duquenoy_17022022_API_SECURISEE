@@ -2,14 +2,10 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const mongoose = require('mongoose');
-
 const helmet = require('helmet');
-
 const path = require('path');
-
 const saucesRoutes = require('./routes/sauces.route');
 const userRoutes = require("./routes/user.route");
-
 const mongo_pwd = process.env.MONGODB_PASSWORD;
 const mongo_name = process.env.MONGODB_NAME;
 const mongo_data = process.env.MONGODB_DATABESE;

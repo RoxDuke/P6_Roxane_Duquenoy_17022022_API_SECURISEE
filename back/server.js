@@ -1,6 +1,5 @@
 const dotenv = require("dotenv");
 dotenv.config();
-
 const http = require('http');
 const { exit } = require('process');
 const app = require('./app');
@@ -24,6 +23,7 @@ const port = normalizePort(process.env.PORT || '3000');
 if (port == false) {
   exit()
 }
+
 app.set('port', port);
 
 //Différentes erreurs + gestion de celles-ci 
@@ -46,8 +46,6 @@ const errorHandler = error => {
       throw error;
   }
 };
-
-
 //Enregistré dans le serveur 
 const server = http.createServer(app);
 

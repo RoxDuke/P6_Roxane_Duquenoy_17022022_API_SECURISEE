@@ -7,7 +7,7 @@ const maximumAttempts = expressLimit({
     //tentatives de connexions autorisées
     max: 3,
     message:
-        "Votre compte est bloqué pendant quelques minutes suite aux tentatives de connexions échouées !",
+        alert("Votre compte est bloqué pendant quelques minutes suite aux tentatives de connexions échouées !"),
 });
 
 module.exports = maximumAttempts;
